@@ -1,7 +1,8 @@
 SOURCE = src/discreta_ii.tex
+BUILD_DIR = build
 
 make:
-	pdflatex $(SOURCE) -output-format=pdf
+	pdflatex -output-directory=$(BUILD_DIR) -output-format=pdf $(SOURCE)
 	make clean
 
 clean:
