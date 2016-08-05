@@ -7,7 +7,7 @@ Originalmente fueron pasadas a computadora usando una plataforama para
 organización del estudio que desarrollé en Django - python (ver repo nerdhelp).
 Dicha plataforma es más apropiada para visualización de los contenidos en un
 navegador (genera html). La exportación a $\LaTeX$ está automatizada y tiene
-algunos problemasque no tuve tiempo de resolver, como:
+algunos problemas que no tuve tiempo de resolver, como:
 
 - presentación de contenido multimedia (gifs, links, videos)
 - tamaño y calidad de las imágenes
