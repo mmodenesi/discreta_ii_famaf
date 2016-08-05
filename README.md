@@ -27,7 +27,7 @@ documento.
 
 ### Sólo quiero ver las notas en pdf
 
-Descargá el archivo src/discreta_ii.pdf
+Descargá el archivo build/discreta_ii.pdf
 
 ### Quiero compilar las notas
 
