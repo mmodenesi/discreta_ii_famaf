@@ -71,6 +71,10 @@ Por favor, mejorá este documento en github
 https://github.com/mmodenesi/discreta\_ii\_famaf
 \end{titlepage}
 
+% -----------------------------------------------------------------------------
+% inicio documento propiamente dicho
+% -----------------------------------------------------------------------------
+
 \section*{Generalidades de notación}
 
 Salvo que se diga explícitamente otra cosa, al referirnos a grafos usamos las letras
@@ -401,11 +405,11 @@ Por ejemplo, si tomamos el grafo $G = (\{a, b, c, d\}, \{\{a, b\},\{a, c\},\{a, 
 \begin{center}
 
     \begin{adjustbox}{max size={\textwidth}{\textheight}}
-        \includegraphics[width=3cm]{/tmp/tmp1OjFsF-1.png}
+        \includegraphics[width=3cm]{/tmp/tmpnkXiPc-1.png}
         \end{adjustbox}
     
     \begin{adjustbox}{max size={\textwidth}{\textheight}}
-        \includegraphics[width=3cm]{/tmp/tmp1OjFsF-0.png}
+        \includegraphics[width=3cm]{/tmp/tmpnkXiPc-0.png}
         \end{adjustbox}
     
 \end{center}
@@ -792,7 +796,7 @@ $\epsilon_i = \begin{cases} c(\overrightarrow{x_ix_{i+1}}) - f(\overrightarrow{x
 
 Notemos que $\epsilon_i$ es "lo que podría aumentar" si estoy considerando un lado forward, o lo que me podrían devolver, si estoy considerando un lado backwards.
 
-Sea $\varepsilon = \min(\epsilon_i)$ (que debe ser positivo por tener un camino aumentante.
+Sea $\varepsilon = \min(\epsilon_i)$ (que debe ser positivo por tener un camino aumentante).
 
 Sea $f^*$ una función sobre los lados del network
 
@@ -824,13 +828,13 @@ La prueba tiene la siguiente estructura
 
 1) $0 \leq f^* (v)$
 
-En los lados "forward" del camino aumentante (aquellos que pertenecen a $E$ en los que aún puedo aumentar la capacidad), $f^*$ está definida como
+En los lados "forward" del camino aumentante (aquellos que pertenecen a $E$ en los que aún puedo aumentar la capacidad), $f^*$ está definido como
 
 \begin{center}
 $f^*(\overrightarrow{x_ix_{i+1}}) = f(\overrightarrow{x_ix_{i+1}})+\varepsilon \geq \varepsilon \geq 0 $
 \end{center}
 
-Mientras que en los lados "backwards" (aquellos que invertidos pertenecen a E, pero aún puedo devolver flujo) está definido como
+Mientras que en los lados "backwards" (aquellos que invertidos pertenecen a $E$, pero aún puedo devolver flujo) está definido como
 
 \begin{center}
 $f^*(\overrightarrow{x_{i+1}x_{i}}) = f(\overrightarrow{x_{i+1}x_{i}}) - \varepsilon \geq f(\overrightarrow{x_{i+1}x_{i}}) -\epsilon_i = 0$
@@ -1224,11 +1228,11 @@ Sea $N = (V, E, C, s, t)$ un network. Si las capacidades de los lados son todas 
 
 \subsubsection*{\textbf{Prueba}}
 
-Por inducción en los flujos producidos por las sucesivas iteraciones de Ford-Fulkerson
+Por inducción en los flujos producidos por las sucesivas iteraciones de Ford-Fulkerson. Sean $f_0, f_1, f_2, \dots, f_n$ los sucesivos flujos producidos por Ford-Fulkeroson.
 
 \textbf{Caso base}
 
-$f_0 = 0$ es entero. Sean $f_1, f_2, \dots, f_n$ los sucesivos flujos producidos por Ford-Fulkeroson.
+$f_0 = 0$ es entero.
 
 \textbf{Hipótesis inductiva}
 
@@ -1256,10 +1260,6 @@ Pero $v(f_{j+1}) - v(f_j) = \varepsilon \in \mathbb{Z} > 0$, por lo tanto $\vare
 
 Como hay una cota superior para el conjunto de valores de flujos (por ejemplo, $CAP(\{s\}) = c(s)$), esta sucesión de flujos que se incrementa en por lo menos una unidad debe acabar.
 
- 
-
- 
-
 \section*{Edmonds-Karp}
 
 Consiste en correr Ford-Fulkerson con una pequeña modificación para garantizar que el algoritmo termina. Se trata de elegir los caminos aumentantes utilizando BFS en el grafo, a partir de $s$.
@@ -1280,44 +1280,52 @@ Consiste en correr Ford-Fulkerson con una pequeña modificación para garantizar
 procedure EK
     // estas tres serán las variables de retorno del algoritmo
 
-    f = 0    // El flujo maximal
+    f = 0    // El flujo maximal, inicialmente vale 0 para todos los lados
     v = 0    // El valor del flujo maximal
     S = $s$  // El corte minimal
 
     done = false
-    while Q $\neq \emptyset$:
-        // Por motivos de eficiencia, conviene terminar
-        // este ciclo si en la cola ya está $t$,
-        // pero para calcular la complejidad de Edmond-Karp
-        // no nos interesa ese aspecto
-        for $z \in \Gamma^*(x) - S$
-            if $f(\overrightarrow{xy}) < c(\overrightarrow{xy})$
-                encolar $z$ en Q
-                S = S $\cup \,\{$z$\}$
-                A(z) = x    // El "ancestro" de z es x
-                B(z) = 1    // Es un lado forward
-                $\varepsilon(z)$ = $\min\{\varepsilon(z), c(\overrightarrow{xy}) - f(\overrightarrow{xy})\}$
-        for $z \in \Gamma^-(x) - S$
-            if $f(\overrightarrow{xy}) > 0$
-                encolar $z$ en Q
-                S = S $\cup \,\{$z$\}$
-                A(z) = x    // El "ancestro" de z es x
-                B(z) = -1    // Es un lado backward
-                $\varepsilon(z)$ = $\min\{\varepsilon(z), f(\overrightarrow{xy})\}$
-    if $t \not \in S$
-        done = true
-    else
-        // reconstruir camino de $s$ a $t$
-        $\varepsilon = \varepsilon(t)$
-        v = v + $\varepsilon$
-        q = t
-        while $q\neq s$
-            p = A(q) 
-            if B(q) = 1
-                $f(\overrightarrow{pq}) = f(\overrightarrow{pq}) + \varepsilon$
-            else
-                $f(\overrightarrow{qp}) = f(\overrightarrow{qp}) + \varepsilon$
-            p = q
+    while not done:
+        Q = ($s$) // cola para BFS
+        $\varepsilon(x) = \infty \;\forall\; x \in V$
+        S = $\{s\}$
+        while Q $\neq \emptyset$:
+            // Por motivos de eficiencia, conviene terminar
+            // este ciclo si en la cola ya está $t$,
+            // pero para calcular la complejidad de Edmond-Karp
+            // no nos interesa ese aspecto
+            x = desencolar primer elemento de Q
+            for $z \in \Gamma^*(x) - S$
+                if $f(\overrightarrow{xz}) < c(\overrightarrow{xz})$
+                    encolar $z$ en Q
+                    S = S $\cup \,\{$z$\}$
+                    A(z) = x    // El "ancestro" de z es x
+                    B(z) = 1    // Es un lado forward
+                    $\varepsilon(z)$ = $\min\{\varepsilon(z), c(\overrightarrow{xz}) - f(\overrightarrow{xz})\}$
+            for $z \in \Gamma^-(x) - S$
+                if $f(\overrightarrow{zx}) > 0$
+                    encolar $z$ en Q
+                    S = S $\cup \,\{$z$\}$
+                    A(z) = x    // El "ancestro" de z es x
+                    B(z) = -1    // Es un lado backward
+                    $\varepsilon(z)$ = $\min\{\varepsilon(z), f(\overrightarrow{zx})\}$
+        // fin BFS
+        if $t \not \in S$
+            done = true
+        else
+            // reconstruir camino de $s$ a $t$
+            $\varepsilon = \varepsilon(t)$
+            v = v + $\varepsilon$
+            q = t
+            while $q\neq s$
+                p = A(q)  // quién lo incluyó en el camino aumentante
+                if B(q) = 1
+                    // p incluyó a q como lado forward
+                    $f(\overrightarrow{pq}) = f(\overrightarrow{pq}) + \varepsilon$
+                else
+                    // p incluyó a q como lado backward
+                    $f(\overrightarrow{qp}) = f(\overrightarrow{qp}) + \varepsilon$
+                q = p
 \end{lstlisting}
 
 \section*{Max Flow usando Edmonds-Karp}
@@ -4930,7 +4938,7 @@ La complejidad de Wave es $O(n^3)$.
 Wave es un algoritmo que trabaja en networks auxiliares y como la distancia entre $s$ y $t$ en networks auxiliares sucesivos aumenta, puede haber a lo sumo $n$ networks auxiliares, así que:
 
 \begin{center}
-Comple(Wave) = $n \cdot$ compl(paso bloqueante)
+compl(Wave) = $n \cdot$ compl(paso bloqueante)
 \end{center}
 
 El paso bloqueante de Wave consiste en una serie de olas hacia adelante y hacia atrás. Las olas hacia adelante son una sucesión de forward_balance (FB) y backward_balance (BB). Cada FB y BB, a su vez, es una sucesión de
@@ -5396,5 +5404,10 @@ Es decir, le damos el color $\text{celeste}$ al $b_{ij}$ y los otros dos los col
 	\item el lado $\{b_{ij}, u_{ij}\}$ no crea problemas, ya que $c(b_{ij}) = \text{celeste}$ y $c(u_{ij}) = \text{negro}$
 	\item el lado $\{b_{ir}, u_{ir}\}$ con $r \neq j$, no crea problemas, ya que $c(b_{ir}) = \text{blanco o negro}$ y $c(u_{ir}) = \text{celeste}$.
 \end{itemize}
+
+
+% -----------------------------------------------------------------------------
+% fin documento propiamente dicho
+% -----------------------------------------------------------------------------
 
 \end{document}
