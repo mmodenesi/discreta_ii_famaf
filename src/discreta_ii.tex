@@ -2108,7 +2108,7 @@ Sea $s=x_0, x_1, x_2,\dots, x_r=t$ un camino dirigido en $A'$. Afirmamos que ese
 	\begin{enumerate}
 
 		\item $\overrightarrow{x_ix_{i+1}}$ no está porque corresponde a un lado vacío o saturado en $N$ (ni siquiera está en el network residual)
-		\item $\overrightarrow{x_ix_{i+1}}$ está en el network residual, pero $d(\overrightarrow{x_{i+1}})\neq d(x_i) + 1$
+		\item $\overrightarrow{x_ix_{i+1}}$ está en el network residual, pero $d(x_{i+1})\neq d(x_i) + 1$
 	\end{enumerate}
 	
 \end{enumerate}
@@ -2121,7 +2121,7 @@ Analicemos los tres casos
 \begin{align*}
 d(t) &\leq d(x_i)\quad\quad\text{(por eso lo excluimos de } A\text{)}\\
 &\leq d'(x_i)\quad\quad \text{(por prueba Edmonds-Karp)}\\
-&< d'(t) \quad\quad\text{(ya que }t\text{ esta despues en este camino}\\
+&< d'(t) \quad\quad\text{(ya que }t\text{ esta despues en este camino)}\\
 \end{align*}
 \end{center}
 
@@ -2131,7 +2131,7 @@ d(t) &\leq d(x_i)\quad\quad\text{(por eso lo excluimos de } A\text{)}\\
 $d'(t) \geq d(t) + 2 > d(t)$
 \end{center}
 
-2.b) $\overrightarrow{x_ix_{i+1}}$ está en el network residual que da origen a $A$, debe ser $d(\overrightarrow{x_{i+1}})\leq d(x_i) + 1$ (mayor no puede ser, ya que al estar conectado $x_{i}$ con $x_{i+1}$, la distancia es mayor en a lo sumo una unidad) pero como no está en $A$, debe ser $d(\overrightarrow{x_{i+1}})\neq d(x_i) + 1$. Concluimos que $d(\overrightarrow{x_{i+1}})< d(x_i) + 1$ (*). Entonces:
+2.b) $\overrightarrow{x_ix_{i+1}}$ está en el network residual que da origen a $A$, debe ser $d(x_{i+1})\leq d(x_i) + 1$ (mayor no puede ser, ya que al estar conectado $x_{i}$ con $x_{i+1}$, la distancia es mayor en a lo sumo una unidad) pero como no está en $A$, debe ser $d(x_{i+1})\neq d(x_i) + 1$. Concluimos que $d(x_{i+1})< d(x_i) + 1$ (*). Entonces:
 
 \begin{center}
 \begin{align*}
@@ -4732,7 +4732,7 @@ De este modo logramos balancear al vértice $A$. El proceso continúa hacia la d
     
 \end{center}
 
-Notar que el vértice $C$ no se pudo balancear. Habiendo recibido $10$ desde $s$, sólo pudo enviar hacia adelante un total de $6$. Lo recuadramos para recordar que está bloqueado:
+Notar que el vértice $D$ no se pudo balancear. Habiendo recibido $10$ desde $s$, sólo pudo enviar hacia adelante un total de $6$. Lo recuadramos para recordar que está bloqueado:
 
 \begin{center}
 
@@ -4940,12 +4940,12 @@ Wave es un algoritmo que trabaja en networks auxiliares y como la distancia entr
 compl(Wave) = $n \cdot$ compl(paso bloqueante)
 \end{center}
 
-El paso bloqueante de Wave consiste en una serie de olas hacia adelante y hacia atrás. Las olas hacia adelante son una sucesión de forward_balance (FB) y backward_balance (BB). Cada FB y BB, a su vez, es una sucesión de
+El paso bloqueante de Wave consiste en una serie de olas hacia adelante y hacia atrás. Las olas hacia adelante son una sucesión de \texttt{forward\_balance} (FB) y las olas hacia atrás, una sucesión de \texttt{backward\_balance} (BB). Cada FB y BB, a su vez, es una sucesión de
 
 \begin{itemize}
 
 	\item buscar vecinos (hacia adelante o hacia atrás)
-	\item "procesar" el lado resultante
+	\item ``procesar'' el lado resultante
 \end{itemize}
 
 donde esos procesamientos son complicados, pero $O(1)$. Por lo tanto, la complejidad del paso bloqueante es
@@ -4986,9 +4986,9 @@ El siguiente punto es clave:
 
 Por lo tanto, $Q \leq $ número total de FB y BB.
 
-El número total de FB en cada ola hacia la derecha es a lo sumo $n$. El número total de BB en cada ola hacia la izquierda es a lo sumo $n$. Entonces el número total de FB + BB es $\leq 2n \cdot$ (número de ciclos "ola hacia la derecha / ola hacia la izquierda).
+El número total de FB en cada ola hacia la derecha es a lo sumo $n$. El número total de BB en cada ola hacia la izquierda es a lo sumo $n$. Entonces el número total de FB + BB es $\leq 2n \cdot$ (número de ciclos ``ola hacia la derecha / ola hacia la izquierda'').
 
-Ahora bien, en cada ola hacia adelante, pueden o no bloquearse algunos vértices. Si no se bloquea ninguno, están todos balanceados (excepto por $s$ y $t$) y se trata de la última iteración. Por ende, en toda iteración que no sea la última, se bloquea \textbf{al menos} un vértice. Por lo tanto, el número total de ciclos "ola hacia la derecha / ola hacia la izquierda") es $\leq (n-2) + 1 = n - 1$.
+Ahora bien, en cada ola hacia adelante, pueden o no bloquearse algunos vértices. Si no se bloquea ninguno, están todos balanceados (excepto por $s$ y $t$) y se trata de la última iteración. Por ende, en toda iteración que no sea la última, se bloquea \textbf{al menos} un vértice. Por lo tanto, el número total de ciclos ``ola hacia la derecha / ola hacia la izquierda'') es $\leq (n-2) + 1 = n - 1$.
 
 Entonces, $Q \leq 2n(n-1) = O (n^2)$.
 
