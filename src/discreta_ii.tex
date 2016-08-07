@@ -1821,7 +1821,7 @@ Un Blocking Flow o flujo bloqueante en un $NA$ es un flujo $g$ tal que todo cami
 
 	\item Construir un $NA$ utilizando BFS.
 	\item Encontrar flujo bloqueante usando greedy con DFS.
-	\item Repetir hasta que no se pueda construir un $NA$ porque $s$ y $t$ quedan inconcexos.
+	\item Repetir hasta que no se pueda construir un $NA$ porque $s$ y $t$ quedan inconexos.
 \end{enumerate}
 
 Si $f$ es el flujo actual en el network $N$, $g$ es el flujo bloqueante obtenido sobre $NA$, entonces el flujo $f^*$ se construye así:
@@ -2147,7 +2147,7 @@ Esta prueba nos dice que los caminos aumentantes provistos por networks auxiliar
 
 \section*{Complejidad de Dinic}
 
-La complejidad de Dinic es $O(n^2m)$, lo cual es un avance con respecto a Edmons-Karp que se nota para grafos dendos (donde $m$ es del orden de $n^2$).
+La complejidad de Dinic es $O(n^2m)$, lo cual es un avance con respecto a Edmons-Karp que se nota para grafos densos (donde $m$ es del orden de $n^2$).
 
 \subsubsection*{Prueba}
 
@@ -2271,11 +2271,10 @@ Por lo tanto, la complejidad de las palabras de tipo $A^+R$  es $O(j)$, donde $
 
 Por un razonamiento análogo (no puede haber más de $d$ letras $A$), la complejidad de las palabras de tipo $A^+I$ es $O(d) + O(d) = O(d)$.
 
-Por último, $R$ tiene la instrucción "borrar lado", por lo que puede haber a lo sumo $m$ palabras de tipo $A^+R$, y también $I$ tiene la instrucción oculta (que se ejecuta al menos una vez) de "borrar lado". Luego, el número de veces que hay palabra de tipo $A^+I$ debe ser como máximo $m$. Por lo tanto, hay a lo sumo $m$ palabras de cada tipo.
+Ahora la cantidad de cada tipo de palabra. $R$ tiene la instrucción "borrar lado", por lo que puede haber a lo sumo $m$ palabras de tipo $R$ y de tipo $A^+R$. También $I$ tiene la instrucción oculta (que se ejecuta al menos una vez) de "borrar lado". Luego, el número de palabras de tipo $A^+I$ debe ser como máximo $m$. Por lo tanto, hay a lo sumo $m$ palabras de cada tipo.
 
-La complejidad de "hallar camino bloqueante es" $O(m) + O(md) = O(md)$. Pero como $d\leq n$, podemos decir que la complejidad de Dinic es $O(mn^2)$.
+La complejidad de "hallar camino bloqueante es" $O(m) + O(2\cdot md) = O(md)$. Pero como $d\leq n$, podemos decir que $O(md) \subseteq O (mn)$ y la complejidad de Dinic es $O(mn^2)$.
 
- 
 
 \section*{Estrategias de resolución de problemas}
 
