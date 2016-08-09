@@ -1728,7 +1728,7 @@ $O(m) * $ (número de veces que se ejecuta el \textbf{while} interno)
 
 Es decir, $O(m)$ por un número determinado de veces, hasta que deja de ser cierta la condición $\text{done} \Leftrightarrow t\not \in S$. Es decir, hasta que no podamos encontrar un camino aumentante entre $s$ y $t$.
 
-Pero el número de caminos aumentantes que podemos encontrar es menor o igual al número de lados $(m)$ por la cantidad de veces que un lado se puede saturar o llenar. Necesitamos acotar este último valor.
+Pero el número de caminos aumentantes que podemos encontrar es menor o igual al número de lados $(m)$ por la cantidad de veces que un lado se puede saturar o vaciar. Necesitamos acotar este último valor.
 
 Supongamos que al construir el flujo en el paso $k$, el lado $\overrightarrow{xz}$ se satura o el lado $\overrightarrow{zx}$ se vacía, tenemos camino
 
@@ -1754,7 +1754,7 @@ Por lo tanto,
 \begin{align*} d_j(t) &= d_j(x) + b_j(x)\\ &= d_j(z)+1+b_j(x)\\ &\geq d_k(z) + 1 + b_k(z)\\ &= (d_k(x)+1) + 1 + b_k(x)\\ &= d_k(t) + 2 \end{align*}
 \end{center}
 
-Por lo tanto, antes de poder saturarse o vaciarse otra vez, la longitud del menor camino aumentante de $s$ a $t$ debe aumentar en al menos $2$. Concluimos que puede haber a lo sumo $n/2$ caminos aumentantes.
+Por lo tanto, antes de poder saturarse o vaciarse otra vez, la longitud del menor camino aumentante de $s$ a $t$ debe aumentar en al menos $2$. Concluimos que puede haber a lo sumo $n/2$ caminos aumentantes en los que se sature (o vacíe) un mismo lado.
 
 Entonces, la complejidad de Edmonds-Karp es:
 
